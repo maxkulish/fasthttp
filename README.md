@@ -160,7 +160,7 @@ BenchmarkClientGetEndToEnd1000Inmemory-4                	10000000	      1316 ns/
 # Install
 
 ```
-go get -u github.com/valyala/fasthttp
+go get -u github.com/maxkulish/fasthttp
 ```
 
 
