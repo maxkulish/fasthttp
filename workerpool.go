@@ -222,10 +222,13 @@ func (wp *workerPool) workerFunc(ch *workerChan) {
 
 		if err = wp.WorkerFunc(c); err != nil && err != errHijacked {
 			errStr := err.Error()
-			if wp.LogAllErrors || !(strings.Contains(errStr, "broken pipe") ||
+			if wp.LogAllErrors ||
+				!(strings.Contains(errStr, "broken pipe") ||
 				strings.Contains(errStr, "reset by peer") ||
 				strings.Contains(errStr, "request headers: small read buffer") ||
-				strings.Contains(errStr, "unexpected EOF") ||
+				strings.Contains(errStr, "EOF") ||
+				strings.Contains(errStr, "connection timed out") ||
+				strings.Contains(errStr, "no route to host") ||
 				strings.Contains(errStr, "i/o timeout")) {
 				wp.Logger.Printf("error when serving connection %q<->%q: %s", c.LocalAddr(), c.RemoteAddr(), err)
 			}
