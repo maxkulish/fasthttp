@@ -1563,6 +1563,23 @@ func TestResponseSuccess(t *testing.T) {
 		200, string(defaultContentType), "asdfsd")
 }
 
+func TestResponseGetSize(t *testing.T) {
+	t.Parallel()
+
+	var resp Response
+	resp.SetStatusCode(200)
+	resp.Header.Set("Content-Type", "test/plain")
+	resp.Header.Set("Server", "server")
+	resp.SetBody([]byte("foobar"))
+
+	expectedSize := 46
+
+	size := resp.GetSize()
+	if size != expectedSize {
+		t.Fatalf("Unexpected response size: %d. Expected %d", size, expectedSize)
+	}
+}
+
 func testResponseSuccess(t *testing.T, statusCode int, contentType, serverName, body string,
 	expectedStatusCode int, expectedContentType, expectedServerName string) {
 	var resp Response

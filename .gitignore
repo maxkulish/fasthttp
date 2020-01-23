@@ -3,3 +3,4 @@ tags
 *.fasthttp.gz
 
 .idea
+data

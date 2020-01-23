@@ -89,6 +89,14 @@ type Response struct {
 	laddr net.Addr
 }
 
+func (res *Response) GetSize() int {
+	size := len(res.Body()) + 2 // 2 for the \r\n that separates the headers and body.
+	res.Header.VisitAll(func(key, value []byte) {
+		size += len(key) + len(value) + 2 // 2 for the \r\n that separates the headers and body.
+	})
+	return size
+}
+
 // SetHost sets host for the request.
 func (req *Request) SetHost(host string) {
 	req.URI().SetHost(host)
